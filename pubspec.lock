@@ -79,7 +79,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: fa16b7465fc79836e1e85dcbb0ad1e58ae9a858e
+      resolved-ref: aec1c98a48dedb6590ef1eb2e35b02218428efbd
       url: "https://github.com/NathanKolbas/hashcat-dart.git"
     source: git
     version: "0.0.1"
