@@ -1,8 +1,19 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hashcat_flutter/pages/init_hashcat/init_hashcat.dart';
+import 'package:hashcat_flutter/providers/hashcat.dart';
+import 'package:provider/provider.dart';
+
+import 'constants.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<HashcatProvider>(create: (context) => HashcatProvider(),),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,48 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hashcat'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextButton(
-              onPressed: () async {
-                FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-                if (result != null) {
-                  print(result.files.single.path);
-                } else {
-                  // User canceled the picker
-                }
-              },
-              child: const Text('Open File'),
-            ),
-          ],
-        ),
-      ),
+      title: 'Hashcat',
+      theme: themeLight,
+      darkTheme: themeDark,
+      themeMode: ThemeMode.dark,
+      debugShowCheckedModeBanner: false,
+      home: const InitHashcat(),
     );
   }
 }
