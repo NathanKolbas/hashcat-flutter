@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hashcat_dart/hashcat.dart';
+import 'package:hashcat_flutter/pages/home_page/home_page.dart';
 import 'package:hashcat_flutter/pages/init_hashcat/init_hashcat.dart';
+import 'package:hashcat_flutter/providers/crack_options.dart';
 import 'package:hashcat_flutter/providers/hashcat.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +13,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<HashcatProvider>(create: (context) => HashcatProvider(),),
+        ChangeNotifierProvider<CrackOptionsProvider>(create: (context) => CrackOptionsProvider(),),
       ],
       child: const MyApp(),
     ),
@@ -27,7 +31,7 @@ class MyApp extends StatelessWidget {
       darkTheme: themeDark,
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      home: const InitHashcat(),
+      home: const HomePage(),
     );
   }
 }

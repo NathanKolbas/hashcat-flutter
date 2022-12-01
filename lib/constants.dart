@@ -51,3 +51,32 @@ final ThemeData themeDark = ThemeData(
   errorColor: blueSchemeDark.error,
   applyElevationOverlayColor: true,
 );
+
+// We can always add more, I only added a few... https://hashcat.net/wiki/doku.php?id=hashcat
+final hashType = {
+  900: "MD4",
+  0: "MD5",
+  100: "SHA1",
+  1400: "SHA2-256",
+  1700: "SHA2-512",
+  17400: "SHA3-256",
+  17600: "SHA3-512"
+};
+
+final attackMode = {
+  0: "Straight",
+  1: "Combination",
+  3: "Brute-Force",
+  6: "Hybrid Wordlist + Mask",
+  7: "Hybrid Mask + Wordlist",
+  9: "Association",
+};
+
+final outputFormat = {
+  "1": "hash[:salt]",
+  "2": "plain",
+  "3": "hex_plain",
+  "4": "crack_pos",
+  "5": "timestamp absolute",
+  "6": "timestamp relative",
+};
