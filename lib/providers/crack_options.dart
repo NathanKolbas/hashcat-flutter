@@ -12,7 +12,7 @@ class CrackOptionsProvider with ChangeNotifier {
   initCrackOptions() async {
     try {
       hashType = 0;
-      String target = "";
+      target = "";
       attackMode = 0;
       dictionary = "";
       outfileFormat = [];

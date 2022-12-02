@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           controller: _pageController,
           onPageChanged: _pageChanged,
           children: const <Widget>[
-            Cracking(),
+            Target(),
             Toolbox(),
             Settings(),
           ],
