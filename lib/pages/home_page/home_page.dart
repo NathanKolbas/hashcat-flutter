@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hashcat_flutter/pages/cracking/attack.dart';
 import 'package:hashcat_flutter/pages/cracking/cracking.dart';
-import 'package:hashcat_flutter/pages/cracking/output.dart';
-import 'package:hashcat_flutter/pages/cracking/target.dart';
 import 'package:hashcat_flutter/pages/settings/settings.dart';
 import 'package:hashcat_flutter/pages/toolbox/toolbox.dart';
 
@@ -42,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           controller: _pageController,
           onPageChanged: _pageChanged,
           children: const <Widget>[
-            Target(),
+            Cracking(),
             Toolbox(),
             Settings(),
           ],
