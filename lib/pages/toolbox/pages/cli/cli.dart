@@ -136,7 +136,7 @@ class _CliState extends State<Cli> {
 
                     return SizedBox(
                       width: double.infinity,
-                      child: Text.rich(
+                      child: SelectableText.rich(
                         textAlign: TextAlign.left,
                         TextSpan(
                           text: 'Hashcat\$ ',
@@ -151,50 +151,6 @@ class _CliState extends State<Cli> {
                   }
                 ),
               ),
-              // Expanded(
-              //   child: SingleChildScrollView(
-              //     controller: _scrollController,
-              //     reverse: true,
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       children: hashcatOutput.mapIndexed<Widget>((index, text) => SizedBox(
-              //         width: double.infinity,
-              //         child: Text.rich(
-              //           textAlign: TextAlign.left,
-              //           TextSpan(
-              //             text: 'Hashcat\$ ',
-              //             style: GoogleFonts.sourceCodePro(),
-              //             children: [
-              //               TextSpan(text: hashcatCommands[index], style: Theme.of(context).textTheme.bodyText2,),
-              //               TextSpan(text: text, style: GoogleFonts.sourceCodePro(),),
-              //             ],
-              //           ),
-              //         ),
-              //       ),).toList()..add(running ? const SizedBox.shrink() :
-              //         Row(
-              //           children: [
-              //             Text('Hashcat\$ ', style: GoogleFonts.sourceCodePro(),),
-              //             Expanded(
-              //               child: TextField(
-              //                 controller: _textEditingController,
-              //                 cursorColor: Colors.white,
-              //                 focusNode: _cliInputNode,
-              //                 style: Theme.of(context).textTheme.bodyText2,
-              //                 // style: GoogleFonts.sourceCodePro(),
-              //                 decoration: const InputDecoration(
-              //                   border: InputBorder.none,
-              //                   focusColor: Colors.white,
-              //                   fillColor: Colors.white,
-              //                 ),
-              //                 onSubmitted: submit,
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       )..reversed,
-              //     ),
-              //   ),
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -207,12 +163,12 @@ class _CliState extends State<Cli> {
                     child: const Text('↑', style: TextStyle(color: Colors.white),),
                   ),
                   TextButton(
-                    onPressed: () => moveCourseRelative(1),
-                    child: const Text('→', style: TextStyle(color: Colors.white),),
-                  ),
-                  TextButton(
                     onPressed: () => moveCommandHistory(1),
                     child: const Text('↓', style: TextStyle(color: Colors.white),),
+                  ),
+                  TextButton(
+                    onPressed: () => moveCourseRelative(1),
+                    child: const Text('→', style: TextStyle(color: Colors.white),),
                   ),
                   PopupMenuButton(
                     shape: RoundedRectangleBorder(

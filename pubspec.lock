@@ -123,8 +123,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: main
-      resolved-ref: aec1c98a48dedb6590ef1eb2e35b02218428efbd
+      ref: "91b892a87d7155128d9cd3167e82255e3230a45d"
+      resolved-ref: "91b892a87d7155128d9cd3167e82255e3230a45d"
       url: "https://github.com/NathanKolbas/hashcat-dart.git"
     source: git
     version: "0.0.1"

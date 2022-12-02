@@ -34,7 +34,7 @@ dependencies:
   hashcat_dart:
     git:
       url: https://github.com/NathanKolbas/hashcat-dart.git
-      ref: main
+      ref: 91b892a87d7155128d9cd3167e82255e3230a45d
 
   multiselect: 0.0.7
   # The following adds the Cupertino Icons font to your application.
