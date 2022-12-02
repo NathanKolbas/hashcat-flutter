@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       routes: routes,
-      home: const HomePage(),
+      home: const InitHashcat(),
     );
   }
 }
