@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hashcat_dart/hashcat.dart';
 import 'package:hashcat_flutter/pages/home_page/home_page.dart';
-import 'package:hashcat_flutter/pages/init_hashcat/init_hashcat.dart';
 import 'package:hashcat_flutter/providers/crack_options.dart';
 import 'package:hashcat_flutter/providers/hashcat.dart';
+import 'package:hashcat_flutter/routes.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
@@ -31,6 +30,7 @@ class MyApp extends StatelessWidget {
       darkTheme: themeDark,
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
+      routes: routes,
       home: const HomePage(),
     );
   }

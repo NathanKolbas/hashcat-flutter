@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hashcat_flutter/constants.dart';
+import 'package:hashcat_flutter/pages/toolbox/pages/cli/cli.dart';
 
 class Toolbox extends StatelessWidget {
   const Toolbox({Key? key}) : super(key: key);
@@ -19,11 +20,9 @@ class Toolbox extends StatelessWidget {
           child: Column(
             children: [
               ToolboxRow(
-                  onTap: () {
-                    print("CLI click");
-                  },
-                  iconData: Icons.terminal,
-                  label: "Run Hashcat on CLI"
+                onTap: () => Navigator.pushNamed(context, Cli.routeName),
+                iconData: Icons.terminal,
+                label: "Run Hashcat on CLI",
               ),
               const SizedBox(height: 15),
               ToolboxRow(
