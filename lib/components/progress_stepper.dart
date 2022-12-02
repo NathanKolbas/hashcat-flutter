@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:hashcat_flutter/providers/hashcat.dart';
+import 'package:provider/provider.dart';
+import 'package:hashcat_flutter/providers/crack_options.dart';
 
 class ProgressStepperStep {
   const ProgressStepperStep({required this.icon, required this.label});
@@ -28,6 +31,25 @@ class ProgressStepper extends StatefulWidget {
 class _ProgressStepperState extends State<ProgressStepper> {
   final PageController _pageController = PageController();
   int _page = 0;
+
+  // TODO the hashcat execution and callback should definitely not live here.
+  // Instead, the execute button could just push over to the CLI page and paste our command into the window.
+
+  hashcatCallback(text) {
+    print(text);
+  }
+
+  crack() {
+    CrackOptionsProvider config = Provider.of<CrackOptionsProvider>(context, listen: false);
+
+    String hashcatCmd = 'hashcat -m ${config.hashType} -a ${config.attackMode} --outfile-format ${config.outfileFormat.join(",")} ${config.target} ${config.dictionary} ${config.extraArgs}';
+    print(hashcatCmd);
+
+    Provider.of<HashcatProvider>(context, listen: false).hashcat.instance.execute(
+      hashcatCmd,
+      callback: hashcatCallback,
+    );
+  }
 
   next() {
     final index = min(_page + 1, widget.pages.length - 1);
@@ -115,7 +137,7 @@ class _ProgressStepperState extends State<ProgressStepper> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _page == 0 ? const SizedBox.shrink() : ElevatedButton(onPressed: previous, child: const Text('Previous')),
-            ElevatedButton(onPressed: next, child: const Text('Next')),
+            _page == 2 ? ElevatedButton(onPressed: crack, child: const Text('Crack')) : ElevatedButton(onPressed: next, child: const Text('Next')),
           ],
         ),
       ),
