@@ -11,20 +11,35 @@ class Target extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          const SizedBox(height: 25),
           const Text("Algorithm",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-          DropdownButton(
-              value: Provider.of<CrackOptionsProvider>(context).hashType,
-              items: hashType.keys
-                  .map((key) => DropdownMenuItem<int>(
-                      value: key, child: Text(hashType[key]!)))
-                  .toList(),
-              onChanged: (value) {
-                Provider.of<CrackOptionsProvider>(context, listen: false)
-                    .setHashType(value);
-              }),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: themeDark.hintColor),
+              borderRadius: BorderRadius.circular(8)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+
+                    isExpanded: true,
+                    value: Provider.of<CrackOptionsProvider>(context).hashType,
+                    items: hashType.keys
+                        .map((key) => DropdownMenuItem<int>(
+                            value: key, child: Text(hashType[key]!)))
+                        .toList(),
+                    onChanged: (value) {
+                      Provider.of<CrackOptionsProvider>(context, listen: false)
+                          .setHashType(value);
+                    }),
+              ),
+            ),
+          ),
           const SizedBox(height: 50),
           const Text("Enter Target",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
@@ -45,7 +60,6 @@ class Target extends StatelessWidget {
               ),
             ),
           ),
-
           TextButton(
             onPressed: () async {
               FilePickerResult? result = await FilePicker.platform.pickFiles();

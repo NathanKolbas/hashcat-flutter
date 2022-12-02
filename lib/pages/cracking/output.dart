@@ -12,12 +12,14 @@ class Output extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          const SizedBox(height: 25),
           const Text("Output Format",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           DropDownMultiSelect(
+            hint: const Text("Select output format(s)"),
             onChanged: (List<String> value) {
               Provider.of<CrackOptionsProvider>(context, listen: false)
                   .setOutfileFormat(value);
@@ -25,7 +27,7 @@ class Output extends StatelessWidget {
             options: outputFormat.keys.toList(),
             selectedValues:
                 Provider.of<CrackOptionsProvider>(context).outfileFormat,
-            whenEmpty: 'Select output format(s)',
+            whenEmpty: "Select output format(s)",
             menuItembuilder: (value) {
               return Text(outputFormat[value]!);
             },

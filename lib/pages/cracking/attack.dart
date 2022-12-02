@@ -11,20 +11,34 @@ class Attack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          const SizedBox(height: 25),
           const Text("Attack Mode",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-          DropdownButton(
-              value: Provider.of<CrackOptionsProvider>(context).attackMode,
-              items: attackMode.keys
-                  .map((key) => DropdownMenuItem<int>(
-                      value: key, child: Text(attackMode[key]!)))
-                  .toList(),
-              onChanged: (value) {
-                Provider.of<CrackOptionsProvider>(context, listen: false)
-                    .setAttackMode(value);
-              }),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: themeDark.hintColor),
+                borderRadius: BorderRadius.circular(8)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+                    isExpanded: true,
+                    value: Provider.of<CrackOptionsProvider>(context).attackMode,
+                    items: attackMode.keys
+                        .map((key) => DropdownMenuItem<int>(
+                        value: key, child: Text(attackMode[key]!)))
+                        .toList(),
+                    onChanged: (value) {
+                      Provider.of<CrackOptionsProvider>(context, listen: false)
+                          .setAttackMode(value);
+                    }),
+            ),
+          ),
+          ),
           const SizedBox(height: 50),
           const Text("Dictionary",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
@@ -43,9 +57,6 @@ class Attack extends StatelessWidget {
             },
             child: const Text('Import from .dict file'), //TODO we could change the text to be the filename after import finishes
           ),
-          const SizedBox(height: 50),
-          const Text("Potentially more options will be needed here based on attack mode",
-              style: TextStyle(fontSize: 15)),
         ],
       ),
     );
