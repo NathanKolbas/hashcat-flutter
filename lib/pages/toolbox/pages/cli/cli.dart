@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
@@ -7,6 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hashcat_flutter/providers/hashcat.dart';
 import 'package:provider/provider.dart';
+
+class CliArgs {
+  /// Used to pass a command to run right away in the CLI
+  final String runCommand;
+
+  CliArgs(this.runCommand);
+}
 
 class Cli extends StatefulWidget {
   static String routeName = 'cli';
@@ -22,6 +28,19 @@ class _CliState extends State<Cli> {
   final ScrollController _scrollController = ScrollController();
   final FocusNode _cliInputNode = FocusNode();
   final List<String> hashcatCommands = [];
+  CliArgs? _args;
+  CliArgs? get args => _args;
+  set args(args) {
+    // Only set args if it hasn't been set yet
+    if (_args != null) return;
+    if (args == null) return;
+
+    _args = args;
+
+    if (args.runCommand != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => submit(args.runCommand));
+    }
+  }
   int hashcatCommandPosition = 0;
   final List<String> hashcatOutput = [];
   bool running = false;
@@ -95,6 +114,8 @@ class _CliState extends State<Cli> {
 
   @override
   Widget build(BuildContext context) {
+    args ??= ModalRoute.of(context)!.settings.arguments as CliArgs;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(

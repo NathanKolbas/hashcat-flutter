@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:hashcat_flutter/providers/hashcat.dart';
+import 'package:hashcat_flutter/pages/toolbox/pages/cli/cli.dart';
 import 'package:provider/provider.dart';
 import 'package:hashcat_flutter/providers/crack_options.dart';
 
@@ -32,23 +32,11 @@ class _ProgressStepperState extends State<ProgressStepper> {
   final PageController _pageController = PageController();
   int _page = 0;
 
-  // TODO the hashcat execution and callback should definitely not live here.
-  // Instead, the execute button could just push over to the CLI page and paste our command into the window.
-
-  hashcatCallback(text) {
-    print(text);
-  }
-
   crack() {
     CrackOptionsProvider config = Provider.of<CrackOptionsProvider>(context, listen: false);
-
     String hashcatCmd = 'hashcat -m ${config.hashType} -a ${config.attackMode} --outfile-format ${config.outfileFormat.join(",")} ${config.target.trim()} ${config.dictionary.trim()} ${config.extraArgs.trim()}'.trim();
-    print(hashcatCmd);
 
-    Provider.of<HashcatProvider>(context, listen: false).hashcat.instance.execute(
-      hashcatCmd,
-      callback: hashcatCallback,
-    );
+    Navigator.pushNamed(context, Cli.routeName, arguments: CliArgs(hashcatCmd));
   }
 
   next() {
