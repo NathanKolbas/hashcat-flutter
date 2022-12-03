@@ -114,7 +114,7 @@ class _CliState extends State<Cli> {
 
   @override
   Widget build(BuildContext context) {
-    args ??= ModalRoute.of(context)!.settings.arguments as CliArgs;
+    args ??= ModalRoute.of(context)!.settings.arguments as CliArgs?;
 
     return Scaffold(
       backgroundColor: Colors.black,
