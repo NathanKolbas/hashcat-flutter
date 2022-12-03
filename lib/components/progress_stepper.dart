@@ -42,7 +42,7 @@ class _ProgressStepperState extends State<ProgressStepper> {
   crack() {
     CrackOptionsProvider config = Provider.of<CrackOptionsProvider>(context, listen: false);
 
-    String hashcatCmd = 'hashcat -m ${config.hashType} -a ${config.attackMode} --outfile-format ${config.outfileFormat.join(",")} ${config.target} ${config.dictionary} ${config.extraArgs}';
+    String hashcatCmd = 'hashcat -m ${config.hashType} -a ${config.attackMode} --outfile-format ${config.outfileFormat.join(",")} ${config.target.trim()} ${config.dictionary.trim()} ${config.extraArgs.trim()}'.trim();
     print(hashcatCmd);
 
     Provider.of<HashcatProvider>(context, listen: false).hashcat.instance.execute(

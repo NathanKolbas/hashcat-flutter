@@ -1,4 +1,3 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hashcat_flutter/constants.dart';
 import 'package:hashcat_flutter/providers/crack_options.dart';
@@ -15,18 +14,16 @@ class Output extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 25),
-          const Text("Output Format",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          const Text(
+            "Output Format",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 10),
           DropDownMultiSelect(
             hint: const Text("Select output format(s)"),
-            onChanged: (List<String> value) {
-              Provider.of<CrackOptionsProvider>(context, listen: false)
-                  .setOutfileFormat(value);
-            },
+            onChanged: (List<String> value) => Provider.of<CrackOptionsProvider>(context, listen: false).outfileFormat = value,
             options: outputFormat.keys.toList(),
-            selectedValues:
-                Provider.of<CrackOptionsProvider>(context).outfileFormat,
+            selectedValues: Provider.of<CrackOptionsProvider>(context).outfileFormat,
             whenEmpty: "Select output format(s)",
             menuItembuilder: (value) {
               return Text(outputFormat[value]!);
@@ -44,15 +41,14 @@ class Output extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 50),
-          const Text("Extra Arguments",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          const Text(
+            "Extra Arguments",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 10),
           TextFormField(
             initialValue: Provider.of<CrackOptionsProvider>(context).extraArgs,
-            onChanged: (value) {
-              Provider.of<CrackOptionsProvider>(context, listen: false)
-                  .setExtraArgs(value);
-            },
+            onChanged: (value) => Provider.of<CrackOptionsProvider>(context, listen: false).extraArgs = value,
             cursorColor: Theme.of(context).primaryColor,
             decoration: InputDecoration(
               labelText: "--args",

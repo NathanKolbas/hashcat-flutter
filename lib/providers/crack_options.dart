@@ -1,49 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:hashcat_dart/hashcat.dart';
 
 class CrackOptionsProvider with ChangeNotifier {
-  int hashType = 0;
-  String target = ""; // this could be a string with one hash or a path to a .txt file (I think)
-  int attackMode = 0;
-  String dictionary = "";
-  List<String> outfileFormat = [];
-  String extraArgs = "";
-
-  initCrackOptions() async {
-    try {
-      hashType = 0;
-      target = "";
-      attackMode = 0;
-      dictionary = "";
-      outfileFormat = [];
-      extraArgs = "";
-    } finally {
-      notifyListeners();
-    }
+  int _hashType = 0;
+  int get hashType => _hashType;
+  set hashType(value) {
+    _hashType = value;
+    notifyListeners();
   }
 
-  setOutfileFormat(value) {
-    outfileFormat = value;
+  String _target = ""; // this could be a string with one hash or a path to a .txt file (I think)
+  String get target => _target;
+  set target(value) {
+    _target = value;
     notifyListeners();
   }
-  setExtraArgs(value) {
-    extraArgs = value;
+
+  int _attackMode = 0;
+  int get attackMode => _attackMode;
+  set attackMode(value) {
+    _attackMode = value;
     notifyListeners();
   }
-  setDictionary(value) {
-    dictionary = value;
+
+  String _dictionary = "";
+  String get dictionary => _dictionary;
+  set dictionary(value) {
+    _dictionary = value;
     notifyListeners();
   }
-  setTarget(value) {
-    target = value;
+
+  List<String> _outfileFormat = [];
+  List<String> get outfileFormat => _outfileFormat;
+  set outfileFormat(value) {
+    _outfileFormat = value;
     notifyListeners();
   }
-  setHashType(value) {
-    hashType = value;
+
+  String _extraArgs = "";
+  String get extraArgs => _extraArgs;
+  set extraArgs(value) {
+    _extraArgs = value;
     notifyListeners();
   }
-  setAttackMode(value) {
-    attackMode = value;
+
+  initCrackOptions() {
+    _hashType = 0;
+    _target = "";
+    _attackMode = 0;
+    _dictionary = "";
+    _outfileFormat = [];
+    _extraArgs = "";
+
     notifyListeners();
   }
 }

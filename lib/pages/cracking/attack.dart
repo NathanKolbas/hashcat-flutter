@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hashcat_flutter/constants.dart';
 import 'package:hashcat_flutter/providers/crack_options.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart' as path;
 
 class Attack extends StatelessWidget {
   const Attack({Key? key}) : super(key: key);
@@ -14,8 +15,10 @@ class Attack extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 25),
-          const Text("Attack Mode",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          const Text(
+            "Attack Mode",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(
@@ -26,36 +29,37 @@ class Attack extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-                    isExpanded: true,
-                    value: Provider.of<CrackOptionsProvider>(context).attackMode,
-                    items: attackMode.keys
-                        .map((key) => DropdownMenuItem<int>(
-                        value: key, child: Text(attackMode[key]!)))
-                        .toList(),
-                    onChanged: (value) {
-                      Provider.of<CrackOptionsProvider>(context, listen: false)
-                          .setAttackMode(value);
-                    }),
+                  isExpanded: true,
+                  value: Provider.of<CrackOptionsProvider>(context).attackMode,
+                  items: attackMode.keys
+                      .map((key) => DropdownMenuItem<int>(
+                      value: key, child: Text(attackMode[key]!)))
+                      .toList(),
+                  onChanged: (value) => Provider.of<CrackOptionsProvider>(context, listen: false).attackMode = value,
+                ),
+              ),
             ),
           ),
-          ),
           const SizedBox(height: 50),
-          const Text("Dictionary",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-
+          const Text(
+            "Dictionary",
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          ),
           TextButton(
             onPressed: () async {
               FilePickerResult? result = await FilePicker.platform.pickFiles();
 
               if (result != null) {
-                print(result.files.single.path);
-                Provider.of<CrackOptionsProvider>(context, listen: false)
-                    .setDictionary(result.files.single.path);
+                Provider.of<CrackOptionsProvider>(context, listen: false).dictionary = result.files.single.path;
               } else {
                 // User canceled the picker
               }
             },
-            child: const Text('Import from .dict file'), //TODO we could change the text to be the filename after import finishes
+            child: Text(
+              Provider.of<CrackOptionsProvider>(context).dictionary.isEmpty ?
+              'Import from .dict file' :
+              path.basename(Provider.of<CrackOptionsProvider>(context).dictionary),
+            ),
           ),
         ],
       ),

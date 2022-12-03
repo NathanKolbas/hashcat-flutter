@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hashcat_flutter/constants.dart';
 import 'package:hashcat_flutter/providers/crack_options.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart' as path;
 
 class Target extends StatelessWidget {
   const Target({Key? key}) : super(key: key);
@@ -14,44 +15,35 @@ class Target extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 25),
-          const Text("Algorithm",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          const Text("Algorithm", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: themeDark.hintColor),
-              borderRadius: BorderRadius.circular(8)
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-
-                    isExpanded: true,
-                    value: Provider.of<CrackOptionsProvider>(context).hashType,
-                    items: hashType.keys
-                        .map((key) => DropdownMenuItem<int>(
-                            value: key, child: Text(hashType[key]!)))
-                        .toList(),
-                    onChanged: (value) {
-                      Provider.of<CrackOptionsProvider>(context, listen: false)
-                          .setHashType(value);
-                    }),
+                  isExpanded: true,
+                  value: Provider.of<CrackOptionsProvider>(context).hashType,
+                  items: hashType.keys.map((key) => DropdownMenuItem<int>(
+                    value: key,
+                    child: Text(hashType[key]!),
+                  )).toList(),
+                  onChanged: (value) => Provider.of<CrackOptionsProvider>(context, listen: false).hashType = value,
+                ),
               ),
             ),
           ),
           const SizedBox(height: 50),
-          const Text("Enter Target",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-          const Text("Type or paste a target hash here",
-              style: TextStyle(fontSize: 15)),
+          const Text("Enter Target", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          const Text("Type or paste a target hash here", style: TextStyle(fontSize: 15)),
           const SizedBox(height: 10),
           TextFormField(
             initialValue: Provider.of<CrackOptionsProvider>(context).target,
-            onChanged: (value) {
-              Provider.of<CrackOptionsProvider>(context, listen: false)
-                  .setTarget(value);
-            },
+            onChanged: (value) => Provider.of<CrackOptionsProvider>(context, listen: false).target = value,
             cursorColor: Theme.of(context).primaryColor,
             decoration: InputDecoration(
               labelText: "Target Hash",
@@ -65,14 +57,16 @@ class Target extends StatelessWidget {
               FilePickerResult? result = await FilePicker.platform.pickFiles();
 
               if (result != null) {
-                print(result.files.single.path);
-                Provider.of<CrackOptionsProvider>(context, listen: false)
-                    .setTarget(result.files.single.path);
+                Provider.of<CrackOptionsProvider>(context, listen: false).target = result.files.single.path;
               } else {
                 // User canceled the picker
               }
             },
-            child: const Text('Import from .txt file'),
+            child: Text(
+              Provider.of<CrackOptionsProvider>(context).target.isEmpty ?
+              'Import from .txt file' :
+              path.basename(Provider.of<CrackOptionsProvider>(context).target),
+            ),
           ),
         ],
       ),
